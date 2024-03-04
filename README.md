@@ -2,7 +2,7 @@
 # Multiboot Example
 
 This repo contains a few scripts and a sample config file which (along
-with this readme.md) demonstrate one way to multi-boot a bunch of Linux
+with this README.md) demonstrate one way to multi-boot a bunch of Linux
 distros from one drive. This example it will handle up to 9 different
 distros.
 
@@ -147,7 +147,7 @@ installed Linux distros.
 **sda4-12 — Linux distro N** are the 9 root partitions where 9
 different Linux distros can be installed.
 
-**sda13 -- scratch** is a spare partition that can be used for sharing
+**sda13 — scratch** is a spare partition that can be used for sharing
 data between distros (or whatever else you want).
 
 
@@ -166,7 +166,7 @@ the 'grub-install' command (AKA grub2-install on some distros).
  * Set the swap partition (sda3 above) type to "linux swap"
  * Set the rest of the partition types to "linux filesystem"
  
-When you're done, lsblk should look something like this:
+When you're done, it should look something like this:
 
 ~~~
 
@@ -207,21 +207,25 @@ Device          Start        End   Sectors  Size Type
 ### Install Master Grub
 
  * Mount the sda2 grub partition somewhere it won't interfere with anything:  
-   `mkdir /mnt/mygrub`  
-   `mount /dev/sda2 /mnt/mygrub`
+ 
+        mkdir /mnt/mygrub
+        mount /dev/sda2 /mnt/mygrub
    
- * Install grub to MBR and the partition mounted above.  
-   `grub-install --boot-directory=/mnt/mygrub/grub /dev/sda`  
+ * Install grub to MBR and the partition mounted above.
+ 
+        grub-install --boot-directory=/mnt/mygrub/grub /dev/sda
    
  * Copy the utility scripts to that grub partition and the grub.cfg
-   file to the grub subdirectory.  
-   `cp grub.cfg /mnt/mygrub/grub/`  
-   `cp bootto.sh grubinstll.sh restore.sh /mnt/mygrub/`
+   file to the grub subdirectory.
    
- * Make backup images of the MBR and the BIOS boot partition.  
-   `cd /mnt/mygrub`  
-   `dd if=/dev/sda of=mbr.img bs=512 count=1`  
-   `dd if=/dev/sda1 of=bios-boot.img bs=64k`
+        cp grub.cfg /mnt/mygrub/grub/
+        cp bootto.sh grubinstll.sh restore.sh /mnt/mygrub/
+   
+ * Make backup images of the MBR and the BIOS boot partition.
+ 
+        cd /mnt/mygrub
+        dd if=/dev/sda of=mbr.img bs=512 count=1
+        dd if=/dev/sda1 of=bios-boot.img bs=64k
    
 You should end up with something like this in /mnt/mygrub:
 
@@ -401,7 +405,7 @@ under /boot.  Mount it somewhere like /mnt/mygrub.
 In order for the distro's grub to be installed in the distro's root
 partition, grub will have to use a block-list to read its core.img
 file. With an _**MBR**_ installation (like the master grub), that file
-is read from either either
+is read from either
 
  1. The gap between the DOS disklabel and the first partition, or
  2. The BIOS Boot partition (when GPT disklabel is used).
@@ -559,8 +563,8 @@ the whole system more robust.
 #### Grub Defaults
 
 There are a changes that are recommended in grub settings. Usually,
-you do this by editing `/etc/default/grub` Some distros might want
-user changes put in different file (usually in a subdirectory of
+you do this by editing /etc/default/grub. Some distros might want user
+changes put in different file (usually in a subdirectory of
 /etc/default/grub.d).
 
 Here are the settings I recommend:
@@ -571,12 +575,12 @@ GRUB_TIMEOUT=5
 GRUB_TIMEOUT_STYLE=menu
 ~~~
 
-That will remove all of the extraneous extra menu entries, force the
-menu to be shown, and give you time enough to read it.  One more thing
-you might also want to consider would be changing the resolution used
-by grub. Many distros default to a tiny font which is difficult to
-read on high-DPI monitors. Something like this might help make the
-menus legible.
+That will remove all of the extraneous menu entries, force the menu to
+be shown, and give you time enough to read it.  One more thing you
+might also want to consider would be changing the resolution used by
+grub. Many distros default to a tiny font which is difficult to read
+on high-DPI monitors. Something like this might help make the menus
+legible.
 
 ~~~
 GRUB_GFXMODE=640x480
@@ -589,7 +593,7 @@ Ubuntu: `udpate-grub`
 RedHat: `grub2-mkconfig -o /boot/grub2/grub.cfg`
 
 The RedHat recipe will probably work for almost any distribution, but
-check to see if the directory is `grub` or `grub2`.
+check to see if the directory is grub or grub2.
 
 
 #### Swap Line in fstab
@@ -623,7 +627,7 @@ UUID=5347f427-b046-4e42-89ee-359d18f569fa /       ext4    defaults      1 1
 ~~~
 
 If your fstab file doesn't have a entry for the swap partition, go
-ahead and add one.
+ahead and add one using the device name.
 
 ## Done
 
@@ -637,3 +641,48 @@ That's it.
 When you boot, you should see your master grub menu. Choose the
 partition you want and then you should see that distro's grub menu.
 
+## Changing Default Boot Selection
+
+If you find that you need to repeatedly boot into the same partition,
+you can change the default selection in the master grub.cfg file by
+using the bootto.sh script.  With no arguments, it will show you the
+available choices:
+
+~~~
+# cd /mnt/mygrub/
+
+# ./bootto.sh 
+
+sda4   Ubuntu Server 22.04.4 
+sda5   Ubuntu Server 20.04.6 
+sda6  
+sda7  
+sda8   Centos 7.9 minimal 
+sda9   Rocky 8.9 minimal 
+sda10  Rocky 9.3 minimal 
+sda11  Mint 21.3 Mate 
+sda12  OpenSuse Leap 15.5 
+ 
+m.2 drive 
+~~~
+
+If passed an argument string, it will search (ignoring case) the
+choices. If more than one choice matches, you'll get an error
+messages:
+
+~~~
+# ./bootto.sh rocky
+ambiguous title pattern 'rocky':
+sda9   Rocky 8.9 minimal 
+sda10  Rocky 9.3 minimal 
+~~~
+
+If exactly one choice matches, that choice will be set as the default
+and the machine will be rebooted:
+
+
+~~~
+# ./bootto.sh 'rocky 8'
+Setting default to 5...
+Rebooting...
+~~~
