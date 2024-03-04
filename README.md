@@ -558,7 +558,7 @@ the whole system more robust.
 
 #### Grub Defaults
 
-There are a changes that are recommended in grub settings. Usually,
+There are changes that I like to make in grub settings. Usually,
 you do this by editing /etc/default/grub. Some distros might want user
 changes put in different file (usually in a subdirectory of
 /etc/default/grub.d).
@@ -573,7 +573,7 @@ GRUB_TIMEOUT_STYLE=menu
 
 That will remove all of the extraneous menu entries, force the menu to
 be shown, and give you time enough to read it.  One more thing you
-might also want to consider would be changing the resolution used by
+might also want to consider is changing the resolution used by
 grub. Many distros default to a tiny font which is difficult to read
 on high-DPI monitors. Something like this might help make the menus
 legible.
