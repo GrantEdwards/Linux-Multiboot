@@ -169,7 +169,6 @@ the 'grub-install' command (AKA grub2-install on some distros).
 When you're done, it should look something like this:
 
 ~~~
-
 $ sudo fdisk -l /dev/sda
 
 Disk /dev/sda: 931.5 GiB, 1000204886016 bytes, 1953525168 sectors
@@ -240,7 +239,6 @@ drwxr-xr-x. 6 root root    1024 Feb 28 17:26 grub
 drwx------. 2 root root   12288 Feb 27 08:46 lost+found
 -rw-r--r--. 1 root root     512 Feb 27 08:52 mbr.img
 -rwxr-xr-x. 1 root root      93 Feb 27 08:57 restore.sh
-
 ~~~
 
 The two backup image files (bios-boot.img and mbr.img) will be used
@@ -542,9 +540,7 @@ during initial setup and did the backups:
 
 ~~~
 # cd /mnt/mygrub/
-
 # ./restore.sh 
-
 + dd if=mbr.img of=/dev/sda bs=512
 1+0 records in
 1+0 records out
@@ -650,9 +646,7 @@ available choices:
 
 ~~~
 # cd /mnt/mygrub/
-
 # ./bootto.sh 
-
 sda4   Ubuntu Server 22.04.4 
 sda5   Ubuntu Server 20.04.6 
 sda6  
