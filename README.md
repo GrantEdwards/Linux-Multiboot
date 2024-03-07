@@ -359,7 +359,7 @@ anything that sounds remotely like any of those.
 
 You want to manually control the partition choice and installation
 layout. This may be called something like "advanced layout" or
-"advanced partition" or "manual partitioning" or something similar.
+"advanced partition" or "manual partitioning" or similar.
 
 Once you get to the manual partitioning menus/screens:
 
@@ -622,7 +622,7 @@ UUID=5347f427-b046-4e42-89ee-359d18f569fa /       ext4    defaults      1 1
 /dev/sda3                                 none    swap    defaults      0 0
 ~~~
 
-If your fstab file doesn't have a entry for the swap partition, go
+If your fstab file doesn't have an entry for the swap partition, go
 ahead and add one using the device name.
 
 ## Done
