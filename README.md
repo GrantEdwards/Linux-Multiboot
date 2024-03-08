@@ -588,7 +588,7 @@ Ubuntu: `udpate-grub`
 RedHat: `grub2-mkconfig -o /boot/grub2/grub.cfg`
 
 The RedHat recipe will probably work for almost any distribution, but
-check to see if the directory is grub or grub2.
+check to see if the directory/filename is spelled with grub or grub2.
 
 
 #### Swap Line in fstab
