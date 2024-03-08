@@ -492,7 +492,6 @@ Mount sda2 if it isn't already mounted:
 ~~~
 # mkdir /mnt/mygrub
 # mount /dev/sda2 /mnt/mygrub
-
 ~~~
 
 Run the grubinstall.sh script (as root):
