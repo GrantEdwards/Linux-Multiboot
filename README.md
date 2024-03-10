@@ -33,13 +33,13 @@ against it.  There seemed to be chronic problems with
 
 OTOH, it's fairly easy to do this with Legacy boot and Grub2, so
 that's what is shown here.  It works pretty much the same with DOS
-or GPT disklabels. I did it for many years with a DOS disklabel, but
-I've recently switch to using a GPT disklabel — so that's what I'll
+or GPT disk-labels. I did it for many years with a DOS disk-label, but
+I've recently switch to using a GPT disk-label — so that's what I'll
 document and demonstrate here.
 
 ## Single Stage vs. Two Stage Boot
 
-After deciding to do legacy boot with GPT disklabel, there's still the
+After deciding to do legacy boot with GPT disk-label, there's still the
 choice of doing a single-stage boot or a two-stage boot.
 
 ### Single Stage Boot
@@ -96,9 +96,9 @@ which will be explained later.
 
 Here's the example GPT partition layout for a 1TB disk that will
 support up to 9 Linux distros (each with a 100GB root partition). A
-DOS disklabel layout would be the same except there would be no BIOS
-Boot partition. With a DOS disk-label, there's a region of unused disk
-space between the disk-label and the first partition that is used
+DOS disk-label layout would be the same except there would be no BIOS
+Boot partition. With a DOS , there's a region of unused disk
+space between the  and the first partition that is used
 instead for grub to store it's "core" image data.
 
 
@@ -405,8 +405,8 @@ partition, grub will have to use a block-list to read its core.img
 file. With an _**MBR**_ installation (like the master grub), that file
 is read from either
 
- 1. The gap between the DOS disklabel and the first partition, or
- 2. The BIOS Boot partition (when GPT disklabel is used).
+ 1. The gap between the MBR and the first partition (when DOS disk-label is used), or
+ 2. The BIOS Boot partition (when GPT disk-label is used).
  
 For a _**partition**_ installation, the core.img file has to be read from
 its location under /boot/grub in the distro's root filesystem. Since
