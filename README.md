@@ -97,9 +97,9 @@ which will be explained later.
 Here's the example GPT partition layout for a 1TB disk that will
 support up to 9 Linux distros (each with a 100GB root partition). A
 DOS disk-label layout would be the same except there would be no BIOS
-Boot partition. With a DOS , there's a region of unused disk
-space between the  and the first partition that is used
-instead for grub to store it's "core" image data.
+Boot partition. With a DOS disk-label, there's a region of unused disk
+space between the  and the first partition that is used instead for
+grub to store it's "core" image data.
 
 
 ~~~
