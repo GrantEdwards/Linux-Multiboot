@@ -34,7 +34,7 @@ against it.  There seemed to be chronic problems with
 OTOH, it's fairly easy to do this with Legacy boot and Grub2, so
 that's what is shown here.  It works pretty much the same with DOS
 or GPT disk-labels. I did it for many years with a DOS disk-label, but
-I've recently switch to using a GPT disk-label — so that's what I'll
+I've recently switched to using a GPT disk-label — so that's what I'll
 document and demonstrate here.
 
 ## Single Stage vs. Two Stage Boot
